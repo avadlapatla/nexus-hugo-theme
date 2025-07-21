@@ -1,5 +1,5 @@
 /**
- * Professional Corporate Theme - Main JavaScript
+ * Nexus Theme - Main JavaScript
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initTestimonialsCarousel();
   initContactForm();
   initSmoothScroll();
+  initSearch();
 });
 
 /**
@@ -240,6 +241,172 @@ function initSmoothScroll() {
       }
     });
   });
+}
+
+/**
+ * Search Functionality
+ */
+function initSearch() {
+  const searchToggle = document.getElementById('search-toggle-btn');
+  
+  if (!searchToggle) return;
+  
+  const searchDropdown = document.querySelector('.search-dropdown');
+  const searchForm = document.querySelector('.search-form');
+  
+  // Create search results container
+  const searchResultsContainer = document.createElement('div');
+  searchResultsContainer.className = 'search-results-container';
+  searchResultsContainer.innerHTML = `
+    <div class="container">
+      <div class="search-results-header">
+        <h3>Search Results</h3>
+        <button class="close-results" aria-label="Close search results">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="search-results"></div>
+    </div>
+  `;
+  document.body.appendChild(searchResultsContainer);
+  
+  // Toggle search dropdown
+  searchToggle.addEventListener('click', function(e) {
+    e.preventDefault();
+    this.classList.toggle('active');
+    if (searchDropdown) {
+      if (searchDropdown.style.display === 'block') {
+        searchDropdown.style.display = 'none';
+      } else {
+        searchDropdown.style.display = 'block';
+        setTimeout(() => {
+          const searchInput = searchDropdown.querySelector('.search-input');
+          if (searchInput) searchInput.focus();
+        }, 100);
+      }
+    }
+  });
+  
+  // Close dropdown when clicking outside
+  document.addEventListener('click', function(e) {
+    if (searchDropdown && searchToggle && 
+        !searchToggle.contains(e.target) && 
+        !searchDropdown.contains(e.target)) {
+      searchToggle.classList.remove('active');
+      searchDropdown.style.display = 'none';
+    }
+  });
+  
+  // Close search on escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      searchToggle.classList.remove('active');
+      if (searchDropdown) searchDropdown.style.display = 'none';
+      if (searchResultsContainer.classList.contains('show')) {
+        searchResultsContainer.classList.remove('show');
+      }
+    }
+  });
+  
+  // Handle search form submission
+  if (searchForm) {
+    searchForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const searchInput = this.querySelector('.search-input');
+      if (!searchInput) return;
+      
+      const searchTerm = searchInput.value.trim();
+      if (!searchTerm) return;
+      
+      // Hide search dropdown
+      if (searchToggle) searchToggle.classList.remove('active');
+      if (searchDropdown) searchDropdown.style.display = 'none';
+      
+      // Show search results container
+      searchResultsContainer.classList.add('show');
+      
+      // Show loading indicator
+      const searchResults = searchResultsContainer.querySelector('.search-results');
+      if (!searchResults) return;
+      
+      searchResults.innerHTML = '<div class="search-loading">Searching...</div>';
+      
+      // In a real implementation, this would fetch results from the backend
+      // For demo purposes, we'll just show some sample results after a delay
+      setTimeout(() => {
+        performSearch(searchTerm, searchResults);
+      }, 500);
+    });
+  }
+  
+  // Close search results
+  const closeResults = searchResultsContainer.querySelector('.close-results');
+  if (closeResults) {
+    closeResults.addEventListener('click', function() {
+      searchResultsContainer.classList.remove('show');
+    });
+  }
+  
+  // Mock search function (in a real site, this would query the backend)
+  function performSearch(term, resultsContainer) {
+    // Normalize search term for simple matching
+    const normalizedTerm = term.toLowerCase();
+    
+    // In a real implementation, this would be fetched from the backend
+    // Sample results for demonstration
+    const sampleResults = [
+      {
+        title: 'Web Development Services',
+        excerpt: 'Professional web development services for your business needs.',
+        url: '/services/web-development/'
+      },
+      {
+        title: 'Digital Marketing Strategies',
+        excerpt: 'Boost your online presence with our digital marketing expertise.',
+        url: '/services/digital-marketing/'
+      },
+      {
+        title: 'Business Strategy Consulting',
+        excerpt: 'Strategic consulting services to help your business grow.',
+        url: '/services/strategy-consulting/'
+      }
+    ];
+    
+    // Filter results based on search term
+    const filteredResults = sampleResults.filter(item => 
+      item.title.toLowerCase().includes(normalizedTerm) || 
+      item.excerpt.toLowerCase().includes(normalizedTerm)
+    );
+    
+    // Display results
+    if (filteredResults.length > 0) {
+      let resultsHtml = '';
+      
+      filteredResults.forEach(result => {
+        resultsHtml += `
+          <div class="search-result-item">
+            <h4 class="result-title">
+              <a href="${result.url}">${result.title}</a>
+            </h4>
+            <p class="result-excerpt">${result.excerpt}</p>
+            <a href="${result.url}" class="btn btn-sm btn-primary">View</a>
+          </div>
+        `;
+      });
+      
+      resultsContainer.innerHTML = resultsHtml;
+    } else {
+      resultsContainer.innerHTML = `
+        <div class="search-no-results">
+          <p>No results found for "${term}"</p>
+          <p>Try different keywords or check spelling</p>
+        </div>
+      `;
+    }
+  }
 }
 
 /**

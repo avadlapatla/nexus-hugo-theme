@@ -30,13 +30,41 @@
         </li>
       {{ end }}
     {{ end }}
+
+    <!-- Add Contact as a normal nav item if navCTA is set -->
+    {{ if .Site.Params.navCTA }}
+    <li class="nav-item">
+      <a class="nav-link" href="{{ .Site.Params.navCTA.URL }}">
+        <span class="nav-text">{{ .Site.Params.navCTA.Text }}</span>
+        <span class="nav-line"></span>
+      </a>
+    </li>
+    {{ end }}
+    
+    <!-- Add search button as a navigation item -->
+    {{ if .Site.Params.search.enabled }}
+    <li class="nav-item search-item">
+      <div class="search-toggle">
+        <button class="btn-search" id="search-toggle-btn" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+        <div class="search-dropdown">
+          <form class="search-form">
+            <input type="search" class="search-input" placeholder="Search..." aria-label="Search">
+            <button type="submit" class="search-submit" aria-label="Submit search">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </li>
+    {{ end }}
   </ul>
-  {{ if .Site.Params.navCTA }}
-  <div class="nav-cta">
-    <a href="{{ .Site.Params.navCTA.URL }}" class="btn btn-primary nav-btn">
-      {{ .Site.Params.navCTA.Text }}
-    </a>
-  </div>
-  {{ end }}
 </nav>
 {{ end }}
