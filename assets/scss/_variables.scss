@@ -1,0 +1,152 @@
+// Professional Corporate Hugo Theme - Variables
+
+// Color System
+// ------------
+
+// Brand Colors
+$primary: #1a365d;    // Deep navy
+$secondary: #2d3748;  // Charcoal
+$accent: #3182ce;     // Professional blue
+$accent-alt: #059669; // Emerald alternative accent
+
+// Neutrals
+$white: #ffffff;
+$light: #f7fafc;
+$light-gray: #edf2f7;
+$medium-gray: #e2e8f0;
+$dark-gray: #4a5568;
+$black: #1a202c;
+
+// Text Colors
+$text-primary: $secondary;
+$text-secondary: $dark-gray;
+$text-muted: #718096;
+$text-light: $white;
+
+// Link Colors
+$link-color: $accent;
+$link-hover-color: darken($accent, 10%);
+
+// Background Colors
+$bg-body: $white;
+$bg-light: $light;
+$bg-dark: $primary;
+$bg-accent: $accent;
+
+// Border Colors
+$border-color: $medium-gray;
+$border-light: $light-gray;
+
+// Typography
+// ------------
+
+// Font Families
+$font-family-heading: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+$font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Open Sans", Helvetica, Arial, sans-serif;
+
+// Font Sizes
+$font-size-base: 1rem;
+$font-size-sm: 0.875rem;
+$font-size-xs: 0.75rem;
+$font-size-lg: 1.125rem;
+$font-size-xl: 1.25rem;
+$font-size-2xl: 1.5rem;
+$font-size-3xl: 1.875rem;
+$font-size-4xl: 2.25rem;
+$font-size-5xl: 3rem;
+
+// Font Weights
+$font-weight-normal: 400;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// Line Heights
+$line-height-base: 1.6;
+$line-height-sm: 1.25;
+$line-height-lg: 1.8;
+$line-height-heading: 1.2;
+
+// Spacing
+// ------------
+
+$spacer: 1rem;
+
+$spacers: (
+  0: 0,
+  1: ($spacer * 0.25),  // 4px
+  2: ($spacer * 0.5),   // 8px
+  3: $spacer,           // 16px
+  4: ($spacer * 1.5),   // 24px
+  5: ($spacer * 2),     // 32px
+  6: ($spacer * 3),     // 48px
+  7: ($spacer * 4),     // 64px
+  8: ($spacer * 5),     // 80px
+);
+
+// Grid & Container
+// ------------
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+);
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1320px
+);
+
+// Component Variables
+// ------------
+
+// Border Radius
+$border-radius-sm: 0.125rem;
+$border-radius: 0.25rem;
+$border-radius-lg: 0.5rem;
+$border-radius-xl: 1rem;
+$border-radius-pill: 50rem;
+
+// Box Shadows
+$box-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$box-shadow: 0 2px 5px rgba(0, 0, 0, 0.07);
+$box-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+$box-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+// Transitions
+$transition-base: all 0.3s ease;
+$transition-fast: all 0.15s ease;
+$transition-slow: all 0.5s ease;
+
+// Z-index
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-fixed: 1030;
+$z-index-modal-backdrop: 1040;
+$z-index-modal: 1050;
+$z-index-popover: 1060;
+$z-index-tooltip: 1070;
+$z-index-header: 1000;
+
+// Header
+$header-height: 80px;
+$header-height-sm: 60px;
+
+// Buttons
+$btn-padding-y: 0.65rem;
+$btn-padding-x: 1.5rem;
+$btn-border-radius: $border-radius;
+$btn-font-weight: $font-weight-semibold;
+
+// Forms
+$input-padding-y: 0.75rem;
+$input-padding-x: 1rem;
+$input-border-radius: $border-radius;
+$input-border-color: $border-color;
+$input-focus-border-color: $accent;

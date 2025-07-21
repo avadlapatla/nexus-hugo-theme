@@ -1,0 +1,106 @@
+{{ define "main" }}
+<section class="page-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h1 class="page-title">{{ .Title }}</h1>
+        {{ with .Description }}
+        <div class="page-description">{{ . | markdownify }}</div>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="container">
+    {{ if eq .Section "posts" }}
+      <div class="blog-list row">
+        {{ range .Pages }}
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="blog-card">
+            {{ if .Params.image }}
+            <div class="blog-image">
+              <a href="{{ .RelPermalink }}">
+                <img src="{{ .Params.image }}" alt="{{ .Title }}">
+              </a>
+            </div>
+            {{ end }}
+            
+            <div class="blog-content">
+              {{ if .Date }}
+              <div class="blog-date">
+                {{ .Date.Format "January 2, 2006" }}
+              </div>
+              {{ end }}
+              
+              <h3 class="blog-title">
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+              </h3>
+              
+              <div class="blog-excerpt">
+                {{ if .Description }}
+                  {{ .Description | truncate 150 }}
+                {{ else }}
+                  {{ .Summary | truncate 150 }}
+                {{ end }}
+              </div>
+              
+              <a href="{{ .RelPermalink }}" class="blog-link">
+                Read More
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    {{ else if eq .Section "services" }}
+      <div class="services-list row">
+        {{ range .Pages }}
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="service-card">
+            {{ if .Params.image }}
+            <div class="service-icon">
+              <img src="{{ .Params.image }}" alt="{{ .Title }} icon">
+            </div>
+            {{ end }}
+            
+            <h3 class="service-title">{{ .Title }}</h3>
+            <p class="service-description">{{ .Description }}</p>
+            
+            <a href="{{ .RelPermalink }}" class="service-link">
+              Learn More
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    {{ else }}
+      <div class="default-content">
+        {{ .Content }}
+      </div>
+      
+      {{ if .Pages }}
+      <div class="page-list">
+        {{ range .Pages }}
+        <div class="page-list-item">
+          <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+          {{ if .Description }}
+          <p>{{ .Description }}</p>
+          {{ end }}
+        </div>
+        {{ end }}
+      </div>
+      {{ end }}
+    {{ end }}
+  </div>
+</section>
+{{ end }}

@@ -1,0 +1,128 @@
+{{ define "main" }}
+<section class="page-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h1 class="page-title">{{ .Title }}</h1>
+        {{ if and (eq .Section "posts") .Date }}
+        <div class="post-meta">
+          <span class="post-date">{{ .Date.Format "January 2, 2006" }}</span>
+          {{ if .Params.categories }}
+          <span class="post-categories">
+            {{ range .Params.categories }}
+            <a href="{{ "/categories/" | relLangURL }}{{ . | urlize }}" class="post-category">{{ . }}</a>
+            {{ end }}
+          </span>
+          {{ end }}
+        </div>
+        {{ else }}
+        {{ with .Description }}
+        <div class="page-description">{{ . }}</div>
+        {{ end }}
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <article class="content-wrapper">
+          <div class="featured-image">
+            <img src="https://picsum.photos/1000/500?random={{ .Title }}" alt="{{ .Title }}">
+          </div>
+
+          <div class="content">
+            {{ .Content }}
+          </div>
+
+          {{ if and (eq .Section "posts") .Params.tags }}
+          <div class="post-tags">
+            <span class="tags-label">Tags:</span>
+            {{ range .Params.tags }}
+            <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="tag">{{ . }}</a>
+            {{ end }}
+          </div>
+          {{ end }}
+
+          {{ if eq .Section "services" }}
+          <div class="service-cta">
+            <h3>Ready to get started?</h3>
+            <p>Contact us today to learn how we can help with your {{ .Title | lower }} needs.</p>
+            <a href="/contact" class="btn btn-primary">Contact Us</a>
+          </div>
+          {{ end }}
+        </article>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="sidebar">
+          {{ if eq .Section "posts" }}
+          <div class="sidebar-widget">
+            <h3 class="widget-title">Recent Posts</h3>
+            <ul class="recent-posts">
+              {{ $pages := where .Site.RegularPages "Section" "posts" }}
+              {{ range first 5 $pages }}
+              {{ if ne .Permalink $.Permalink }}
+              <li>
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                <span class="post-date">{{ .Date.Format "Jan 2, 2006" }}</span>
+              </li>
+              {{ end }}
+              {{ end }}
+            </ul>
+          </div>
+
+          {{ if .Params.categories }}
+          <div class="sidebar-widget">
+            <h3 class="widget-title">Categories</h3>
+            <ul class="category-list">
+              {{ range $name, $taxonomy := .Site.Taxonomies.categories }}
+              <li>
+                <a href="{{ "/categories/" | relLangURL }}{{ $name | urlize }}">{{ $name }}</a>
+                <span class="category-count">{{ $taxonomy.Count }}</span>
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+          {{ end }}
+
+          {{ if .Params.tags }}
+          <div class="sidebar-widget">
+            <h3 class="widget-title">Tags</h3>
+            <div class="tag-cloud">
+              {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
+              <a href="{{ "/tags/" | relLangURL }}{{ $name | urlize }}" class="tag">{{ $name }}</a>
+              {{ end }}
+            </div>
+          </div>
+          {{ end }}
+          {{ end }}
+
+          {{ if eq .Section "services" }}
+          <div class="sidebar-widget">
+            <h3 class="widget-title">Our Services</h3>
+            <ul class="service-list">
+              {{ $currentPage := . }}
+              {{ range where .Site.RegularPages "Section" "services" }}
+              <li class="{{ if eq . $currentPage }}active{{ end }}">
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+
+          <div class="sidebar-widget">
+            <h3 class="widget-title">Contact Us</h3>
+            <p>Have questions about our {{ .Title | lower }} service? Get in touch with us today.</p>
+            <a href="/contact" class="btn btn-primary btn-block">Contact Us</a>
+          </div>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

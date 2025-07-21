@@ -1,0 +1,20 @@
+// Professional Corporate Hugo Theme - Main SCSS
+
+// Core variables and mixins
+@import "variables";
+@import "mixins";
+
+// Reset and base styles
+@import "base";
+
+// Layouts
+@import "layouts";
+
+// Components
+@import "components";
+
+// Utilities
+@import "utilities";
+
+// Pages
+@import "pages";

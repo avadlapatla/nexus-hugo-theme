@@ -1,0 +1,27 @@
+{{ if .Site.Menus.main }}
+<nav>
+  <ul class="navbar-nav">
+    {{ $currentPage := . }}
+    {{ range .Site.Menus.main }}
+      {{ if .HasChildren }}
+        <li class="nav-item dropdown{{ if $currentPage.HasMenuCurrent "main" . }} active{{ end }}">
+          <a class="nav-link" href="{{ .URL }}">
+            {{ .Name }}
+          </a>
+          <ul class="dropdown-menu">
+            {{ range .Children }}
+              <li class="{{ if $currentPage.IsMenuCurrent "main" . }}active{{ end }}">
+                <a class="dropdown-item" href="{{ .URL }}">{{ .Name }}</a>
+              </li>
+            {{ end }}
+          </ul>
+        </li>
+      {{ else }}
+        <li class="nav-item{{ if $currentPage.IsMenuCurrent "main" . }} active{{ end }}">
+          <a class="nav-link" href="{{ .URL }}">{{ .Name }}</a>
+        </li>
+      {{ end }}
+    {{ end }}
+  </ul>
+</nav>
+{{ end }}

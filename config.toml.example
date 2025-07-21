@@ -1,0 +1,327 @@
+# Professional Corporate Theme - Example Config File
+
+baseURL = "https://example.com"
+languageCode = "en-us"
+title = "Your Company Name"
+theme = "professional-corporate"
+
+# Enable Hugo features
+enableRobotsTXT = true
+enableGitInfo = false
+enableEmoji = true
+
+# Site parameters
+[params]
+  description = "Professional corporate website for your business, agency or portfolio"
+  copyright = "© 2025 Your Company. All rights reserved."
+  author = "Your Company"
+  
+  # Logo (if not provided, site title text will be displayed instead)
+  # logo = "images/logo.svg"
+  
+  # Theme colors can be customized if needed
+  [params.colors]
+    primary = "#1a365d" # Deep navy
+    secondary = "#2d3748" # Charcoal
+    accent = "#3182ce" # Professional blue
+    # accent = "#059669" # Alternative: Emerald
+  
+  # SEO related
+  [params.seo]
+    [params.seo.meta]
+      keywords = ["business", "corporate", "professional", "agency", "consulting"]
+      
+  # Search functionality (optional)
+  [params.search]
+    enabled = true
+    
+  # Hero section
+  [params.hero]
+    heading = "Professional Solutions for Modern Businesses"
+    subheading = "We deliver cutting-edge solutions that help businesses thrive in the digital age. Our team of experts is dedicated to your success."
+    buttonText = "Learn More"
+    buttonURL = "#about"
+    secondaryButtonText = "Contact Us"
+    secondaryButtonURL = "#contact"
+    # image = "images/hero-image.jpg"
+    # pattern = "images/patterns/hero-pattern.svg" # Optional background pattern
+    
+  # Services section
+  [params.services]
+    title = "Our Services"
+    subtitle = "We offer a comprehensive range of services to help your business succeed"
+    buttonText = "View All Services"
+    buttonURL = "/services"
+    
+    # Service items
+    [[params.services.items]]
+      name = "Strategy Consulting"
+      description = "We help businesses develop and implement effective strategies to achieve their goals."
+      icon = "images/icons/strategy.svg"
+      link = "/services/strategy-consulting"
+      linkText = "Learn More"
+      
+    [[params.services.items]]
+      name = "Digital Marketing"
+      description = "Our digital marketing services are designed to help businesses reach their target audience and drive growth."
+      icon = "images/icons/marketing.svg"
+      link = "/services/digital-marketing"
+      linkText = "Learn More"
+      
+    [[params.services.items]]
+      name = "Web Development"
+      description = "We build modern, responsive websites that help businesses establish a strong online presence."
+      icon = "images/icons/development.svg"
+      link = "/services/web-development"
+      linkText = "Learn More"
+      
+  # About section
+  [params.about]
+    title = "About Us"
+    subtitle = "We're a team of passionate professionals dedicated to helping businesses succeed"
+    image = "images/about.jpg"
+    imageAlt = "Our team at work"
+    content = """
+      Founded in 2010, our company has been at the forefront of innovation and excellence in business solutions. We combine expertise, creativity, and technology to deliver outstanding results for our clients.
+
+      Our mission is to empower businesses with the tools and strategies they need to thrive in today's competitive market. We believe in building lasting relationships with our clients based on trust, transparency, and mutual success.
+    """
+    
+    # Key features
+    [[params.about.features]]
+      title = "Client-Focused Approach"
+      description = "We prioritize your needs and goals to deliver tailored solutions."
+      icon = "images/icons/client.svg"
+      
+    [[params.about.features]]
+      title = "Innovative Solutions"
+      description = "We leverage the latest technologies and methodologies."
+      icon = "images/icons/innovation.svg"
+      
+    [[params.about.features]]
+      title = "Proven Results"
+      description = "Our track record speaks for itself with successful case studies."
+      icon = "images/icons/results.svg"
+    
+    buttonText = "Learn More About Us"
+    buttonURL = "/about"
+    
+    # Team section
+    [params.about.team]
+      title = "Our Leadership Team"
+      subtitle = "Meet the talented individuals behind our success"
+      
+      [[params.about.team.members]]
+        name = "Jane Smith"
+        position = "CEO & Founder"
+        image = "images/team/jane-smith.jpg"
+        bio = "Jane has over 15 years of experience in the industry and has led the company since its founding."
+        [params.about.team.members.social]
+          linkedin = "https://linkedin.com/in/janesmith"
+          twitter = "janesmith"
+          email = "jane@example.com"
+          
+      [[params.about.team.members]]
+        name = "John Doe"
+        position = "CTO"
+        image = "images/team/john-doe.jpg"
+        bio = "John leads our technical team with expertise in software development and digital transformation."
+        [params.about.team.members.social]
+          linkedin = "https://linkedin.com/in/johndoe"
+          twitter = "johndoe"
+          email = "john@example.com"
+          
+      [[params.about.team.members]]
+        name = "Sarah Johnson"
+        position = "Creative Director"
+        image = "images/team/sarah-johnson.jpg"
+        bio = "Sarah brings her creative vision and design expertise to every client project."
+        [params.about.team.members.social]
+          linkedin = "https://linkedin.com/in/sarahjohnson"
+          twitter = "sarahjohnson"
+          email = "sarah@example.com"
+          
+      [[params.about.team.members]]
+        name = "Michael Brown"
+        position = "Marketing Director"
+        image = "images/team/michael-brown.jpg"
+        bio = "Michael has driven successful marketing campaigns for Fortune 500 companies."
+        [params.about.team.members.social]
+          linkedin = "https://linkedin.com/in/michaelbrown"
+          twitter = "michaelbrown"
+          email = "michael@example.com"
+  
+  # Testimonials section
+  [params.testimonials]
+    title = "Client Testimonials"
+    subtitle = "Hear what our clients have to say about working with us"
+    layout = "carousel" # Options: carousel, grid
+    
+    [[params.testimonials.items]]
+      quote = "Working with this team has been a game-changer for our business. Their strategic guidance and technical expertise have helped us achieve remarkable growth."
+      name = "Robert Wilson"
+      position = "CEO"
+      company = "Tech Innovations Inc."
+      image = "images/testimonials/robert-wilson.jpg"
+      
+    [[params.testimonials.items]]
+      quote = "The team's attention to detail and commitment to excellence exceeded our expectations. They delivered our project on time and on budget, with outstanding results."
+      name = "Emily Chen"
+      position = "Marketing Director"
+      company = "Global Solutions Ltd."
+      image = "images/testimonials/emily-chen.jpg"
+      
+    [[params.testimonials.items]]
+      quote = "Their innovative approach to problem-solving and their deep industry knowledge make them an invaluable partner for any business looking to grow."
+      name = "David Rodriguez"
+      position = "COO"
+      company = "Next Level Enterprises"
+      image = "images/testimonials/david-rodriguez.jpg"
+      
+  # Blog section
+  [params.blog]
+    title = "Latest News & Insights"
+    subtitle = "Stay up-to-date with our latest articles and industry insights"
+    limit = 3 # Number of posts to display
+    buttonText = "View All Posts"
+    buttonURL = "/blog"
+    
+  # Contact section
+  [params.contact]
+    title = "Contact Us"
+    subtitle = "Get in touch with our team to discuss your business needs"
+    formTitle = "Send us a message"
+    formAction = "#" # Replace with your form handling endpoint
+    infoTitle = "Contact Information"
+    address = "123 Business Street, Suite 100, City, Country"
+    phone = "+1 (555) 123-4567"
+    email = "info@example.com"
+    hours = "Monday-Friday: 9AM-5PM"
+    showMap = true
+    mapIframe = '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387193.305935303!2d-74.25986548248684!3d40.69714941932609!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sca!4v1619545303202!5m2!1sen!2sca" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>'
+    
+  # Social links
+  [params.social]
+    twitter = "yourcompany"
+    facebook = "https://facebook.com/yourcompany"
+    instagram = "https://instagram.com/yourcompany"
+    linkedin = "https://linkedin.com/company/yourcompany"
+    # You can add more social links as needed
+    
+  # Footer information
+  [params.footer]
+    description = "We provide professional business solutions to help companies grow and succeed in today's competitive market."
+
+# Main menu
+[menu]
+  [[menu.main]]
+    identifier = "home"
+    name = "Home"
+    url = "/"
+    weight = 1
+    
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/about"
+    weight = 2
+    
+  [[menu.main]]
+    identifier = "services"
+    name = "Services"
+    url = "/services"
+    weight = 3
+    
+    [[menu.main]]
+      parent = "services"
+      name = "Strategy Consulting"
+      url = "/services/strategy-consulting"
+      weight = 1
+      
+    [[menu.main]]
+      parent = "services"
+      name = "Digital Marketing"
+      url = "/services/digital-marketing"
+      weight = 2
+      
+    [[menu.main]]
+      parent = "services"
+      name = "Web Development"
+      url = "/services/web-development"
+      weight = 3
+  
+  [[menu.main]]
+    identifier = "blog"
+    name = "Blog"
+    url = "/blog"
+    weight = 4
+    
+  [[menu.main]]
+    identifier = "contact"
+    name = "Contact"
+    url = "/contact"
+    weight = 5
+
+# Footer menus
+[menu.footer]
+  [[menu.footer]]
+    identifier = "home"
+    name = "Home"
+    url = "/"
+    weight = 1
+    
+  [[menu.footer]]
+    identifier = "about"
+    name = "About"
+    url = "/about"
+    weight = 2
+    
+  [[menu.footer]]
+    identifier = "services"
+    name = "Services"
+    url = "/services"
+    weight = 3
+    
+  [[menu.footer]]
+    identifier = "blog"
+    name = "Blog"
+    url = "/blog"
+    weight = 4
+    
+  [[menu.footer]]
+    identifier = "contact"
+    name = "Contact"
+    url = "/contact"
+    weight = 5
+
+[menu.services]
+  [[menu.services]]
+    identifier = "strategy"
+    name = "Strategy Consulting"
+    url = "/services/strategy-consulting"
+    weight = 1
+    
+  [[menu.services]]
+    identifier = "marketing"
+    name = "Digital Marketing"
+    url = "/services/digital-marketing"
+    weight = 2
+    
+  [[menu.services]]
+    identifier = "development"
+    name = "Web Development"
+    url = "/services/web-development"
+    weight = 3
+
+[menu.legal]
+  [[menu.legal]]
+    identifier = "privacy"
+    name = "Privacy Policy"
+    url = "/privacy-policy"
+    weight = 1
+    
+  [[menu.legal]]
+    identifier = "terms"
+    name = "Terms of Service"
+    url = "/terms-of-service"
+    weight = 2
