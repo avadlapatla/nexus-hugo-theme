@@ -1,4 +1,4 @@
-# Professional Corporate Theme - Example Config File
+# Nexus Theme - Example Config File
 
 baseURL = "/"
 languageCode = "en-us"
@@ -11,7 +11,7 @@ enableEmoji = true
 
 # Site parameters
 [params]
-  description = "Professional corporate website for your business, agency or portfolio"
+  description = "Nexus website for your business, agency or portfolio"
   copyright = "© 2025 Your Company. All rights reserved."
   author = "Your Company"
   

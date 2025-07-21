@@ -1,5 +1,5 @@
 /**
- * Professional Corporate Hugo Theme - Main JavaScript
+ * Nexus Hugo Theme - Main JavaScript
  */
 
 document.addEventListener('DOMContentLoaded', function() {
