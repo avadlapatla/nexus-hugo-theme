@@ -5,24 +5,55 @@
       <p class="section-subtitle">{{ .Site.Params.blog.subtitle }}</p>
     </div>
     
-    <div class="blog-posts row">
-      {{ $postsLimit := default 3 .Site.Params.blog.limit }}
-      {{ $posts := where .Site.RegularPages "Section" "posts" }}
-      {{ range first $postsLimit $posts }}
-      <div class="col-md-6 col-lg-4">
-        <div class="blog-card">
+    {{ $postsLimit := default 3 .Site.Params.blog.limit }}
+    {{ $posts := where .Site.RegularPages "Section" "posts" }}
+    {{ $firstPost := first 1 $posts }}
+    {{ $otherPosts := first (sub $postsLimit 1) (after 1 $posts) }}
+    
+    <div class="blog-posts-wrapper">
+      <!-- Featured Post -->
+      {{ range $firstPost }}
+      <div class="blog-featured">
+        <div class="blog-card featured">
           <div class="blog-image">
             <a href="{{ .RelPermalink }}">
-              <img src="https://picsum.photos/600/400?random={{ .Title }}" alt="{{ .Title }}">
+              <img src="https://picsum.photos/800/500?random={{ .Title }}" alt="{{ .Title }}">
+              <div class="featured-overlay">
+                <span class="featured-badge">Featured</span>
+              </div>
             </a>
           </div>
           
           <div class="blog-content">
-            {{ if .Date }}
-            <div class="blog-date">
-              {{ .Date.Format "January 2, 2006" }}
+            <div class="blog-meta">
+              {{ if .Params.categories }}
+              <div class="blog-categories">
+                {{ range first 1 .Params.categories }}
+                <a href="{{ "/categories/" | relLangURL }}{{ . | urlize }}" class="category-badge">{{ . }}</a>
+                {{ end }}
+              </div>
+              {{ end }}
+              
+              {{ if .Date }}
+              <div class="blog-date">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                {{ .Date.Format "January 2, 2006" }}
+              </div>
+              {{ end }}
+              
+              <div class="blog-reading-time">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                {{ div (countwords .Content) 200 | math.Ceil}} min read
+              </div>
             </div>
-            {{ end }}
             
             <h3 class="blog-title">
               <a href="{{ .RelPermalink }}">{{ .Title }}</a>
@@ -30,28 +61,113 @@
             
             <div class="blog-excerpt">
               {{ if .Description }}
-                {{ .Description | truncate 150 }}
+                {{ .Description | truncate 180 }}
               {{ else }}
-                {{ .Summary | truncate 150 }}
+                {{ .Summary | truncate 180 }}
               {{ end }}
             </div>
             
-            <a href="{{ .RelPermalink }}" class="blog-link">
-              Read More
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </a>
+            <div class="blog-footer">
+              <div class="blog-author">
+                <div class="author-avatar">
+                  <img src="https://i.pravatar.cc/150?u={{ .Title }}" alt="Author">
+                </div>
+                <span>{{ with .Params.author }}{{ . }}{{ else }}Author{{ end }}</span>
+              </div>
+              
+              <a href="{{ .RelPermalink }}" class="blog-link">
+                Read Article
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </div>
       {{ end }}
+      
+      <!-- Regular Posts -->
+      <div class="blog-regular">
+        <div class="row">
+          {{ range $otherPosts }}
+          <div class="col-md-6">
+            <div class="blog-card">
+              <div class="blog-image">
+                <a href="{{ .RelPermalink }}">
+                  <img src="https://picsum.photos/600/400?random={{ .Title }}" alt="{{ .Title }}">
+                </a>
+              </div>
+              
+              <div class="blog-content">
+                <div class="blog-meta">
+                  {{ if .Params.categories }}
+                  <div class="blog-categories">
+                    {{ range first 1 .Params.categories }}
+                    <a href="{{ "/categories/" | relLangURL }}{{ . | urlize }}" class="category-badge">{{ . }}</a>
+                    {{ end }}
+                  </div>
+                  {{ end }}
+                  
+                  {{ if .Date }}
+                  <div class="blog-date">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                      <line x1="16" y1="2" x2="16" y2="6"></line>
+                      <line x1="8" y1="2" x2="8" y2="6"></line>
+                      <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                    {{ .Date.Format "Jan 2, 2006" }}
+                  </div>
+                  {{ end }}
+                </div>
+                
+                <h4 class="blog-title">
+                  <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                </h4>
+                
+                <div class="blog-excerpt">
+                  {{ if .Description }}
+                    {{ .Description | truncate 100 }}
+                  {{ else }}
+                    {{ .Summary | truncate 100 }}
+                  {{ end }}
+                </div>
+                
+                <div class="blog-footer">
+                  <div class="blog-author">
+                    <div class="author-avatar">
+                      <img src="https://i.pravatar.cc/150?u={{ .Title }}" alt="Author">
+                    </div>
+                    <span>{{ with .Params.author }}{{ . }}{{ else }}Author{{ end }}</span>
+                  </div>
+                  
+                  <a href="{{ .RelPermalink }}" class="blog-link">
+                    Read
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {{ end }}
+        </div>
+      </div>
     </div>
     
     {{ if and .Site.Params.blog.buttonText .Site.Params.blog.buttonURL }}
     <div class="text-center mt-5">
-      <a href="{{ .Site.Params.blog.buttonURL }}" class="btn btn-primary">{{ .Site.Params.blog.buttonText }}</a>
+      <a href="{{ .Site.Params.blog.buttonURL }}" class="btn btn-primary btn-lg btn-with-arrow">
+        {{ .Site.Params.blog.buttonText }}
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
     </div>
     {{ end }}
   </div>

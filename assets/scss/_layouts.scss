@@ -452,6 +452,12 @@ section {
   &:nth-child(even) {
     background-color: $bg-light;
   }
+  
+  &.blog-section {
+    background: linear-gradient(to bottom, $bg-light 0%, rgba($bg-light, 0.5) 100%);
+    border-top: 1px solid rgba($border-color, 0.1);
+    border-bottom: 1px solid rgba($border-color, 0.1);
+  }
 }
 
 // Section Headings
@@ -471,7 +477,14 @@ section {
       width: 60px;
       height: 3px;
       background-color: $accent;
+      transition: all 0.3s ease;
     }
+  }
+  
+  &:hover h2::after {
+    width: 100%;
+    background: linear-gradient(to right, $accent 0%, lighten($accent, 15%) 100%);
+    box-shadow: 0 1px 6px rgba($accent, 0.4);
   }
 }
 
