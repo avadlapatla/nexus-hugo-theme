@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initialize all components
   initMobileNavigation();
   initDropdownMenus();
+  initHeaderScroll();
   initTestimonialsCarousel();
   initContactForm();
   initSmoothScroll();
@@ -28,8 +29,10 @@ function initMobileNavigation() {
       
       if (isExpanded) {
         navCollapse.classList.remove('show');
+        document.body.classList.remove('menu-open');
       } else {
         navCollapse.classList.add('show');
+        document.body.classList.add('menu-open');
       }
     });
     
@@ -39,6 +42,7 @@ function initMobileNavigation() {
       if (navCollapse && !navCollapse.contains(event.target) && !navToggle.contains(event.target)) {
         navCollapse.classList.remove('show');
         navToggle.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('menu-open');
       }
     });
   }
@@ -63,15 +67,43 @@ function initDropdownMenus() {
         
         if (dropdownMenu.classList.contains('show')) {
           dropdownMenu.classList.remove('show');
+          parent.classList.remove('active');
         } else {
           // Close any open dropdown menus
           document.querySelectorAll('.dropdown-menu.show').forEach(function(menu) {
             menu.classList.remove('show');
+            if (menu.parentNode) {
+              menu.parentNode.classList.remove('active');
+            }
           });
           
           dropdownMenu.classList.add('show');
+          parent.classList.add('active');
         }
       });
+    });
+  }
+}
+
+/**
+ * Header Scroll Effect
+ */
+function initHeaderScroll() {
+  const header = document.getElementById('site-header');
+  
+  if (header) {
+    // Apply scrolled class initially if page is not at the top
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    }
+    
+    // Listen for scroll events
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
     });
   }
 }
@@ -230,11 +262,14 @@ function initSmoothScroll() {
         if (navCollapse) {
           navCollapse.classList.remove('show');
           document.querySelector('.navbar-toggler').setAttribute('aria-expanded', 'false');
+          document.body.classList.remove('menu-open');
         }
         
-        // Scroll to target
+        // Scroll to target with offset for fixed header
+        const headerHeight = document.getElementById('site-header')?.offsetHeight || 80;
+        
         window.scrollTo({
-          top: targetElement.offsetTop - 80, // Offset for fixed header
+          top: targetElement.offsetTop - headerHeight,
           behavior: 'smooth'
         });
       }

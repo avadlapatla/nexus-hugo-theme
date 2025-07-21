@@ -38,7 +38,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <!-- CSS -->
-<link rel="stylesheet" href="{{ "css/main.css" | relURL }}">
+{{ $options := (dict "targetPath" "css/main.css" "enableSourceMap" true) }}
+{{ $styles := resources.Get "scss/main.scss" | css.Sass $options }}
+
+{{ if hugo.IsProduction }}
+  {{ $styles = $styles | resources.Minify | resources.Fingerprint "sha512" }}
+  <link rel="stylesheet" href="{{ $styles.RelPermalink }}" integrity="{{ $styles.Data.Integrity }}" media="screen">
+{{ else }}
+  <link rel="stylesheet" href="{{ $styles.RelPermalink }}" media="screen">
+{{ end }}
 
 <!-- Custom Head -->
 {{ if .Site.Params.customHead }}{{ .Site.Params.customHead | safeHTML }}{{ end }}
