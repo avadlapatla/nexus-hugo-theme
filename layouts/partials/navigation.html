@@ -1,49 +1,51 @@
 {{ if .Site.Menus.main }}
 <nav class="site-nav">
-  <ul class="navbar-nav">
-    {{ $currentPage := . }}
-    {{ range .Site.Menus.main }}
-      {{ if .HasChildren }}
-        <li class="nav-item dropdown{{ if $currentPage.HasMenuCurrent "main" . }} active{{ end }}">
-          <a class="nav-link" href="{{ .URL }}" aria-expanded="false">
-            <span class="nav-text">{{ .Name }}</span>
-            <span class="nav-indicator">
-              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </span>
-          </a>
-          <ul class="dropdown-menu">
-            {{ range .Children }}
-              <li class="dropdown-item-wrapper {{ if $currentPage.IsMenuCurrent "main" . }}active{{ end }}">
-                <a class="dropdown-item" href="{{ .URL }}">{{ .Name }}</a>
-              </li>
-            {{ end }}
-          </ul>
-        </li>
-      {{ else }}
-        <li class="nav-item{{ if $currentPage.IsMenuCurrent "main" . }} active{{ end }}">
-          <a class="nav-link" href="{{ .URL }}">
-            <span class="nav-text">{{ .Name }}</span>
-            <span class="nav-line"></span>
-          </a>
-        </li>
+  <div class="nav-content">
+    <ul class="navbar-nav">
+      {{ $currentPage := . }}
+      {{ range .Site.Menus.main }}
+        {{ if .HasChildren }}
+          <li class="nav-item dropdown{{ if $currentPage.HasMenuCurrent "main" . }} active{{ end }}">
+            <a class="nav-link" href="{{ .URL }}" aria-expanded="false">
+              <span class="nav-text">{{ .Name }}</span>
+              <span class="nav-indicator">
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </a>
+            <ul class="dropdown-menu">
+              {{ range .Children }}
+                <li class="dropdown-item-wrapper {{ if $currentPage.IsMenuCurrent "main" . }}active{{ end }}">
+                  <a class="dropdown-item" href="{{ .URL }}">{{ .Name }}</a>
+                </li>
+              {{ end }}
+            </ul>
+          </li>
+        {{ else }}
+          <li class="nav-item{{ if $currentPage.IsMenuCurrent "main" . }} active{{ end }}">
+            <a class="nav-link" href="{{ .URL }}">
+              <span class="nav-text">{{ .Name }}</span>
+              <span class="nav-line"></span>
+            </a>
+          </li>
+        {{ end }}
       {{ end }}
-    {{ end }}
 
-    <!-- Add Contact as a normal nav item if navCTA is set -->
-    {{ if .Site.Params.navCTA }}
-    <li class="nav-item">
-      <a class="nav-link" href="{{ .Site.Params.navCTA.URL }}">
-        <span class="nav-text">{{ .Site.Params.navCTA.Text }}</span>
-        <span class="nav-line"></span>
-      </a>
-    </li>
-    {{ end }}
-    
-    <!-- Add search button as a navigation item -->
+      <!-- Add Contact as a normal nav item if navCTA is set -->
+      {{ if .Site.Params.navCTA }}
+      <li class="nav-item">
+        <a class="nav-link" href="{{ .Site.Params.navCTA.URL }}">
+          <span class="nav-text">{{ .Site.Params.navCTA.Text }}</span>
+          <span class="nav-line"></span>
+        </a>
+      </li>
+      {{ end }}
+    </ul>
+
+    <!-- Add search button as a separate right-aligned element -->
     {{ if .Site.Params.search.enabled }}
-    <li class="nav-item search-item">
+    <div class="search-container">
       <div class="search-toggle">
         <button class="btn-search" id="search-toggle-btn" aria-label="Search">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -63,8 +65,8 @@
           </form>
         </div>
       </div>
-    </li>
+    </div>
     {{ end }}
-  </ul>
+  </div>
 </nav>
 {{ end }}
