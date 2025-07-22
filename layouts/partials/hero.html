@@ -1,21 +1,125 @@
-<section class="hero">
+{{/* Hero Section - Fully Customizable */}}
+{{ $hero := .Site.Params.hero }}
+{{ $layout := $hero.layout | default "standard" }}
+{{ $bgImage := $hero.backgroundImage }}
+{{ $bgPattern := $hero.pattern }}
+{{ $bgColor := $hero.backgroundColor }}
+
+<section class="hero hero-layout-{{ $layout }}" 
+  {{ with $bgColor }}style="background-color: {{ . }};"{{ end }}
+  {{ if $bgImage }}data-bg-image="{{ $bgImage }}"{{ end }}
+  {{ if $bgPattern }}data-bg-pattern="{{ $bgPattern }}"{{ end }}
+>
   <div class="container">
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="hero-content">
-          <h1 class="hero-heading">Professional Solutions for Modern Businesses</h1>
-          <p class="hero-subheading">We deliver cutting-edge solutions that help businesses thrive in the digital age.</p>
-          <div class="hero-cta">
-            <a href="#contact" class="btn btn-primary">Contact Us</a>
-            <a href="#about" class="btn btn-outline">Learn More</a>
+    {{/* Standard Layout (Content Left, Image Right) */}}
+    {{ if eq $layout "standard" }}
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="hero-content">
+            <h1 class="hero-heading">{{ $hero.heading | default "Professional Solutions for Modern Businesses" }}</h1>
+            <p class="hero-subheading">{{ $hero.subheading | default "We deliver cutting-edge solutions that help businesses thrive in the digital age." }}</p>
+            
+            <div class="hero-cta">
+              {{ if and $hero.buttonText $hero.buttonURL }}
+                <a href="{{ $hero.buttonURL }}" class="btn btn-primary">{{ $hero.buttonText }}</a>
+              {{ end }}
+              
+              {{ if and $hero.secondaryButtonText $hero.secondaryButtonURL }}
+                <a href="{{ $hero.secondaryButtonURL }}" class="btn btn-outline">{{ $hero.secondaryButtonText }}</a>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-6">
+          <div class="hero-image">
+            {{ if $hero.image }}
+              <img src="{{ $hero.image }}" alt="{{ $hero.imageAlt | default "Hero Image" }}">
+            {{ else }}
+              <img src="/images/hero/hero-image.jpg" alt="Hero Image">
+            {{ end }}
           </div>
         </div>
       </div>
-      <div class="col-lg-6">
-        <div class="hero-image">
-          <img src="https://picsum.photos/1200/800" alt="Hero Image">
+    
+    {{/* Centered Layout */}}
+    {{ else if eq $layout "centered" }}
+      <div class="row justify-content-center text-center">
+        <div class="col-lg-8">
+          <div class="hero-content">
+            <h1 class="hero-heading">{{ $hero.heading | default "Professional Solutions for Modern Businesses" }}</h1>
+            <p class="hero-subheading">{{ $hero.subheading | default "We deliver cutting-edge solutions that help businesses thrive in the digital age." }}</p>
+            
+            <div class="hero-cta">
+              {{ if and $hero.buttonText $hero.buttonURL }}
+                <a href="{{ $hero.buttonURL }}" class="btn btn-primary">{{ $hero.buttonText }}</a>
+              {{ end }}
+              
+              {{ if and $hero.secondaryButtonText $hero.secondaryButtonURL }}
+                <a href="{{ $hero.secondaryButtonURL }}" class="btn btn-outline">{{ $hero.secondaryButtonText }}</a>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+        
+        {{ if $hero.image }}
+        <div class="col-12 mt-5">
+          <div class="hero-image">
+            <img src="{{ $hero.image }}" alt="{{ $hero.imageAlt | default "Hero Image" }}">
+          </div>
+        </div>
+        {{ end }}
+      </div>
+      
+    {{/* Content Right Layout */}}
+    {{ else if eq $layout "content-right" }}
+      <div class="row flex-lg-row-reverse">
+        <div class="col-lg-6">
+          <div class="hero-content">
+            <h1 class="hero-heading">{{ $hero.heading | default "Professional Solutions for Modern Businesses" }}</h1>
+            <p class="hero-subheading">{{ $hero.subheading | default "We deliver cutting-edge solutions that help businesses thrive in the digital age." }}</p>
+            
+            <div class="hero-cta">
+              {{ if and $hero.buttonText $hero.buttonURL }}
+                <a href="{{ $hero.buttonURL }}" class="btn btn-primary">{{ $hero.buttonText }}</a>
+              {{ end }}
+              
+              {{ if and $hero.secondaryButtonText $hero.secondaryButtonURL }}
+                <a href="{{ $hero.secondaryButtonURL }}" class="btn btn-outline">{{ $hero.secondaryButtonText }}</a>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-6">
+          <div class="hero-image">
+            {{ if $hero.image }}
+              <img src="{{ $hero.image }}" alt="{{ $hero.imageAlt | default "Hero Image" }}">
+            {{ else }}
+              <img src="/images/hero/hero-image.jpg" alt="Hero Image">
+            {{ end }}
+          </div>
         </div>
       </div>
-    </div>
+    
+    {{/* Full Width Layout */}}
+    {{ else if eq $layout "full-width" }}
+      <div class="hero-full-width">
+        <div class="hero-content text-center">
+          <h1 class="hero-heading display-3">{{ $hero.heading | default "Professional Solutions for Modern Businesses" }}</h1>
+          <p class="hero-subheading lead">{{ $hero.subheading | default "We deliver cutting-edge solutions that help businesses thrive in the digital age." }}</p>
+          
+          <div class="hero-cta">
+            {{ if and $hero.buttonText $hero.buttonURL }}
+              <a href="{{ $hero.buttonURL }}" class="btn btn-primary btn-lg">{{ $hero.buttonText }}</a>
+            {{ end }}
+            
+            {{ if and $hero.secondaryButtonText $hero.secondaryButtonURL }}
+              <a href="{{ $hero.secondaryButtonURL }}" class="btn btn-outline btn-lg">{{ $hero.secondaryButtonText }}</a>
+            {{ end }}
+          </div>
+        </div>
+      </div>
+    {{ end }}
   </div>
 </section>

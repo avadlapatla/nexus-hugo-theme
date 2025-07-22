@@ -1,40 +1,137 @@
-<section class="services-section" id="services">
+{{/* Services Section - Fully Customizable */}}
+{{ $services := .Site.Params.services }}
+{{ $layout := $services.layout | default "grid" }}
+{{ $style := $services.style | default "cards" }}
+{{ $columns := $services.columns | default "3" }}
+{{ $background := $services.backgroundColor }}
+{{ $textColor := $services.textColor }}
+{{ $iconStyle := $services.iconStyle | default "default" }}
+{{ $hoverEffect := $services.hoverEffect | default "shadow" }}
+
+<section class="services-section services-layout-{{ $layout }} services-style-{{ $style }} services-hover-{{ $hoverEffect }}" 
+  id="services"
+  {{ with $background }}style="background-color: {{ . }};"{{ end }}
+  {{ with $textColor }}data-text-color="{{ . }}"{{ end }}
+>
   <div class="container">
     <div class="section-heading text-center">
-      <h2>{{ .Site.Params.services.title }}</h2>
-      <p class="section-subtitle">{{ .Site.Params.services.subtitle }}</p>
+      <h2>{{ $services.title | default "Our Services" }}</h2>
+      <p class="section-subtitle">{{ $services.subtitle | default "We offer a comprehensive range of services to help your business succeed" }}</p>
     </div>
     
-    <div class="services-grid row">
-      {{ range .Site.Params.services.items }}
-      <div class="service-item col-md-6 col-lg-4">
-        <div class="service-card">
+    {{/* Grid Layout */}}
+    {{ if eq $layout "grid" }}
+      {{ $colClass := "col-lg-4" }}
+      {{ if eq $columns "2" }}
+        {{ $colClass = "col-md-6" }}
+      {{ else if eq $columns "4" }}
+        {{ $colClass = "col-md-6 col-lg-3" }}
+      {{ end }}
+      
+      <div class="services-grid row">
+        {{ range $services.items }}
+        <div class="service-item {{ $colClass }}">
+          <div class="service-card">
+            {{ if .icon }}
+            <div class="service-icon service-icon-{{ $iconStyle }}">
+              <img src="{{ .icon }}" alt="{{ .name }} icon">
+            </div>
+            {{ end }}
+            
+            <h3 class="service-title">{{ .name }}</h3>
+            <p class="service-description">{{ .description }}</p>
+            
+            {{ if and .link .linkText }}
+            <a href="{{ .link }}" class="service-link">
+              {{ .linkText }}
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    
+    {{/* List Layout */}}
+    {{ else if eq $layout "list" }}
+      <div class="services-list">
+        {{ range $services.items }}
+        <div class="service-list-item">
           {{ if .icon }}
-          <div class="service-icon">
+          <div class="service-icon service-icon-{{ $iconStyle }}">
             <img src="{{ .icon }}" alt="{{ .name }} icon">
           </div>
           {{ end }}
           
-          <h3 class="service-title">{{ .name }}</h3>
-          <p class="service-description">{{ .description }}</p>
-          
-          {{ if and .link .linkText }}
-          <a href="{{ .link }}" class="service-link">
-            {{ .linkText }}
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </a>
+          <div class="service-content">
+            <h3 class="service-title">{{ .name }}</h3>
+            <p class="service-description">{{ .description }}</p>
+            
+            {{ if and .link .linkText }}
+            <a href="{{ .link }}" class="service-link">
+              {{ .linkText }}
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    
+    {{/* Features Layout */}}
+    {{ else if eq $layout "features" }}
+      <div class="services-features row">
+        {{ range $services.items }}
+        <div class="service-feature col-md-6">
+          <div class="feature-wrapper">
+            {{ if .icon }}
+            <div class="feature-icon feature-icon-{{ $iconStyle }}">
+              <img src="{{ .icon }}" alt="{{ .name }} icon">
+            </div>
+            {{ end }}
+            
+            <div class="feature-content">
+              <h3 class="feature-title">{{ .name }}</h3>
+              <p class="feature-description">{{ .description }}</p>
+              
+              {{ if and .link .linkText }}
+              <a href="{{ .link }}" class="feature-link">{{ .linkText }}</a>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+      
+    {{/* Compact Layout */}}
+    {{ else if eq $layout "compact" }}
+      <div class="services-compact">
+        <div class="row">
+          {{ range $services.items }}
+          <div class="col-sm-6 col-lg-4 mb-4">
+            <a href="{{ .link }}" class="service-compact-item">
+              {{ if .icon }}
+              <span class="compact-icon">
+                <img src="{{ .icon }}" alt="{{ .name }} icon">
+              </span>
+              {{ end }}
+              <span class="compact-name">{{ .name }}</span>
+            </a>
+          </div>
           {{ end }}
         </div>
       </div>
-      {{ end }}
-    </div>
+    {{ end }}
     
-    {{ if and .Site.Params.services.buttonText .Site.Params.services.buttonURL }}
+    {{ if and $services.buttonText $services.buttonURL }}
     <div class="text-center mt-5">
-      <a href="{{ .Site.Params.services.buttonURL }}" class="btn btn-primary">{{ .Site.Params.services.buttonText }}</a>
+      <a href="{{ $services.buttonURL }}" class="btn btn-primary">{{ $services.buttonText }}</a>
     </div>
     {{ end }}
   </div>

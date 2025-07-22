@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="50" viewBox="0 0 180 50">
+  <!-- Left arrow and simplified network node -->
+  <path d="M15,25 L30,25 M15,25 L20,20 M15,25 L20,30" stroke="#ffffff" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <circle cx="15" cy="25" r="6" fill="#60a5fa"/>
+  
+  <!-- Nexus text -->
+  <text x="42" y="34" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#ffffff">Nexus</text>
+</svg>

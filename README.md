@@ -34,14 +34,14 @@ A modern, professional Hugo theme designed for businesses, agencies, and portfol
 
 ```bash
 cd themes
-git submodule add https://github.com/yourusername/hugo-nexus-theme.git nexus
+git submodule add https://github.com/avadlapatla/nexus-hugo-theme.git nexus
 ```
 
 ### Option 2: Clone the Repository
 
 ```bash
 cd themes
-git clone https://github.com/yourusername/hugo-nexus-theme.git nexus
+git clone https://github.com/avadlapatla/nexus-hugo-theme.git nexus
 ```
 
 ### Option 3: Download
@@ -85,7 +85,7 @@ Then customize the configuration according to your needs.
 
 ## Demo
 
-Visit the [Nexus Theme Demo](https://your-demo-site.com/) to see the theme in action.
+Visit the [Nexus Theme Demo](https://avadlapatla.github.io/nexus-hugo-theme/) to see the theme in action.
 
 ## File Structure
 
@@ -226,4 +226,4 @@ This theme is released under the [MIT license](LICENSE).
 
 ## Support
 
-For questions, bug reports, or feature requests, please [open an issue](https://github.com/yourusername/hugo-nexus-theme/issues).
+For questions, bug reports, or feature requests, please [open an issue](https://github.com/avadlapatla/nexus-hugo-theme/issues).

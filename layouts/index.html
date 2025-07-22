@@ -1,13 +1,21 @@
 {{ define "main" }}
-  {{ partial "hero.html" . }}
+  {{/* Dynamic Section Loading System */}}
+  {{ $sections := .Site.Params.layout.sections | default (slice 
+    "hero" 
+    "services" 
+    "about" 
+    "testimonials" 
+    "blog" 
+    "contact"
+  )}}
   
-  {{ partial "services.html" . }}
-  
-  {{ partial "about.html" . }}
-  
-  {{ partial "testimonials.html" . }}
-  
-  {{ partial "blog-section.html" . }}
-  
-  {{ partial "contact.html" . }}
+  {{ range $sections }}
+    {{ $sectionName := . }}
+    {{ $sectionConfig := index $.Site.Params $sectionName }}
+    
+    {{ if ne $sectionConfig.enabled false }}
+      {{ $partialName := printf "%s.html" $sectionName }}
+      {{ partial $partialName $ }}
+    {{ end }}
+  {{ end }}
 {{ end }}

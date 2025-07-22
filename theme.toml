@@ -1,15 +1,15 @@
 name = "Nexus"
 license = "MIT"
-licenselink = "https://github.com/your-username/hugo-nexus-theme/blob/main/LICENSE"
+licenselink = "https://github.com/avadlapatla/nexus-hugo-theme/blob/main/LICENSE"
 description = "A modern, professional Hugo theme for businesses, agencies, and portfolios with clean design and responsive layout"
-homepage = "https://github.com/your-username/hugo-nexus-theme"
+homepage = "https://github.com/avadlapatla/nexus-hugo-theme"
 tags = ["blog", "business", "corporate", "portfolio", "agency", "responsive", "modern", "clean"]
 features = ["responsive", "seo", "accessibility", "fast", "modern"]
 min_version = "0.110.0"
 
 [author]
-  name = "Your Name"
-  homepage = "https://your-website.com"
+  name = "Nexus Theme Team"
+  homepage = "https://github.com/avadlapatla/nexus-hugo-theme"
 
 # Theme supports
 [markup]

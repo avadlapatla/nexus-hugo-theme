@@ -1,118 +1,253 @@
-<section class="about-section" id="about">
+{{/* About Section - Fully Customizable */}}
+{{ $about := .Site.Params.about }}
+{{ $layout := $about.layout | default "standard" }}
+{{ $imagePosition := $about.imagePosition | default "left" }}
+{{ $showTeam := $about.showTeam | default true }}
+{{ $teamLayout := $about.teamLayout | default "grid" }}
+{{ $teamColumns := $about.teamColumns | default "4" }}
+{{ $background := $about.backgroundColor }}
+{{ $textColor := $about.textColor }}
+{{ $contentWidth := $about.contentWidth | default "normal" }}
+
+<section class="about-section about-layout-{{ $layout }} about-image-{{ $imagePosition }} about-width-{{ $contentWidth }}" 
+  id="about"
+  {{ with $background }}style="background-color: {{ . }};"{{ end }}
+  {{ with $textColor }}data-text-color="{{ . }}"{{ end }}
+>
   <div class="container">
     <div class="section-heading text-center">
-      <h2>About Us</h2>
-      <p class="section-subtitle">We're a team of passionate professionals dedicated to helping businesses succeed</p>
+      <h2>{{ $about.title | default "About Us" }}</h2>
+      <p class="section-subtitle">{{ $about.subtitle | default "We're a team of passionate professionals dedicated to helping businesses succeed" }}</p>
     </div>
     
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="about-image">
-          <img src="https://picsum.photos/800/600?random=1" alt="About our company">
+    {{/* Standard Layout with Image and Content Side by Side */}}
+    {{ if eq $layout "standard" }}
+      <div class="row{{ if eq $imagePosition "right" }} flex-lg-row-reverse{{ end }}">
+        <div class="col-lg-6">
+          <div class="about-image">
+            {{ if $about.image }}
+              <img src="{{ $about.image }}" alt="{{ $about.imageAlt | default "About our company" }}">
+            {{ else }}
+              <img src="/images/about/about.jpg" alt="About our company">
+            {{ end }}
+          </div>
+        </div>
+        
+        <div class="col-lg-6">
+          <div class="about-content">
+            <div class="about-text">
+              {{ with $about.content }}
+                {{ . | markdownify }}
+              {{ else }}
+                <p>Founded in 2010, our company has been at the forefront of innovation and excellence in business solutions. We combine expertise, creativity, and technology to deliver outstanding results for our clients.</p>
+                <p>Our mission is to empower businesses with the tools and strategies they need to thrive in today's competitive market. We believe in building lasting relationships with our clients based on trust, transparency, and mutual success.</p>
+              {{ end }}
+            </div>
+            
+            {{ if $about.features }}
+            <div class="about-features">
+              {{ range $about.features }}
+              <div class="feature-item">
+                {{ if .icon }}
+                <div class="feature-icon">
+                  <img src="{{ .icon }}" alt="{{ .title }} icon">
+                </div>
+                {{ end }}
+                <div class="feature-text">
+                  <h4>{{ .title }}</h4>
+                  <p>{{ .description }}</p>
+                </div>
+              </div>
+              {{ end }}
+            </div>
+            {{ end }}
+            
+            {{ if and $about.buttonText $about.buttonURL }}
+            <div class="about-cta mt-4">
+              <a href="{{ $about.buttonURL }}" class="btn btn-primary">{{ $about.buttonText }}</a>
+            </div>
+            {{ end }}
+          </div>
+        </div>
+      </div>
+    
+    {{/* Full Width Content Layout */}}
+    {{ else if eq $layout "full-content" }}
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="about-content text-center">
+            <div class="about-text">
+              {{ with $about.content }}
+                {{ . | markdownify }}
+              {{ else }}
+                <p>Founded in 2010, our company has been at the forefront of innovation and excellence in business solutions. We combine expertise, creativity, and technology to deliver outstanding results for our clients.</p>
+                <p>Our mission is to empower businesses with the tools and strategies they need to thrive in today's competitive market. We believe in building lasting relationships with our clients based on trust, transparency, and mutual success.</p>
+              {{ end }}
+            </div>
+            
+            {{ if and $about.buttonText $about.buttonURL }}
+            <div class="about-cta mt-4">
+              <a href="{{ $about.buttonURL }}" class="btn btn-primary">{{ $about.buttonText }}</a>
+            </div>
+            {{ end }}
+          </div>
         </div>
       </div>
       
-      <div class="col-lg-6">
-        <div class="about-content">
-          <div class="about-text">
-            <p>Founded in 2010, our company has been at the forefront of innovation and excellence in business solutions. We combine expertise, creativity, and technology to deliver outstanding results for our clients.</p>
-            <p>Our mission is to empower businesses with the tools and strategies they need to thrive in today's competitive market. We believe in building lasting relationships with our clients based on trust, transparency, and mutual success.</p>
-          </div>
-          
-          <div class="about-features">
-            <div class="feature-item">
-              <div class="feature-icon">
-                <img src="/images/icons/client.svg" alt="Client-Focused icon">
-              </div>
-              <div class="feature-text">
-                <h4>Client-Focused Approach</h4>
-                <p>We prioritize your needs and goals to deliver tailored solutions.</p>
-              </div>
-            </div>
-            
-            <div class="feature-item">
-              <div class="feature-icon">
-                <img src="/images/icons/innovation.svg" alt="Innovation icon">
-              </div>
-              <div class="feature-text">
-                <h4>Innovative Solutions</h4>
-                <p>We leverage the latest technologies and methodologies.</p>
-              </div>
-            </div>
-            
-            <div class="feature-item">
-              <div class="feature-icon">
-                <img src="/images/icons/results.svg" alt="Results icon">
-              </div>
-              <div class="feature-text">
-                <h4>Proven Results</h4>
-                <p>Our track record speaks for itself with successful case studies.</p>
-              </div>
-            </div>
+      {{ if $about.image }}
+      <div class="row justify-content-center mt-5">
+        <div class="col-lg-10">
+          <div class="about-image text-center">
+            <img src="{{ $about.image }}" alt="{{ $about.imageAlt | default "About our company" }}">
           </div>
         </div>
       </div>
-    </div>
+      {{ end }}
+      
+      {{ if $about.features }}
+      <div class="about-features row mt-5">
+        {{ range $about.features }}
+        <div class="col-md-4 text-center">
+          <div class="feature-item">
+            {{ if .icon }}
+            <div class="feature-icon mb-3">
+              <img src="{{ .icon }}" alt="{{ .title }} icon">
+            </div>
+            {{ end }}
+            <div class="feature-text">
+              <h4>{{ .title }}</h4>
+              <p>{{ .description }}</p>
+            </div>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+      {{ end }}
     
-    <div class="team-section">
+    {{/* Content Image Stacked Layout */}}
+    {{ else if eq $layout "stacked" }}
+      {{ if $about.image }}
+      <div class="row justify-content-center mb-5">
+        <div class="col-lg-10">
+          <div class="about-image">
+            <img src="{{ $about.image }}" alt="{{ $about.imageAlt | default "About our company" }}">
+          </div>
+        </div>
+      </div>
+      {{ end }}
+      
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="about-content">
+            <div class="about-text">
+              {{ with $about.content }}
+                {{ . | markdownify }}
+              {{ else }}
+                <p>Founded in 2010, our company has been at the forefront of innovation and excellence in business solutions. We combine expertise, creativity, and technology to deliver outstanding results for our clients.</p>
+                <p>Our mission is to empower businesses with the tools and strategies they need to thrive in today's competitive market. We believe in building lasting relationships with our clients based on trust, transparency, and mutual success.</p>
+              {{ end }}
+            </div>
+            
+            {{ if $about.features }}
+            <div class="about-features">
+              {{ range $about.features }}
+              <div class="feature-item">
+                {{ if .icon }}
+                <div class="feature-icon">
+                  <img src="{{ .icon }}" alt="{{ .title }} icon">
+                </div>
+                {{ end }}
+                <div class="feature-text">
+                  <h4>{{ .title }}</h4>
+                  <p>{{ .description }}</p>
+                </div>
+              </div>
+              {{ end }}
+            </div>
+            {{ end }}
+            
+            {{ if and $about.buttonText $about.buttonURL }}
+            <div class="about-cta mt-4">
+              <a href="{{ $about.buttonURL }}" class="btn btn-primary">{{ $about.buttonText }}</a>
+            </div>
+            {{ end }}
+          </div>
+        </div>
+      </div>
+    {{ end }}
+    
+    {{/* Team Section - Conditionally Displayed */}}
+    {{ if and $showTeam $about.team }}
+    <div class="team-section mt-5 pt-5">
       <div class="text-center">
-        <h3 class="team-heading">Our Leadership Team</h3>
-        <p class="team-subtitle">Meet the talented individuals behind our success</p>
+        <h3 class="team-heading">{{ $about.team.title | default "Our Leadership Team" }}</h3>
+        <p class="team-subtitle">{{ $about.team.subtitle | default "Meet the talented individuals behind our success" }}</p>
       </div>
       
-      <div class="team-members row">
-        <div class="team-member col-md-6 col-lg-3">
-          <div class="member-card">
-            <div class="member-image">
-              <img src="https://picsum.photos/400/400?random=team1" alt="Jane Smith">
-            </div>
-            <div class="member-info">
-              <h4 class="member-name">Jane Smith</h4>
-              <p class="member-position">CEO & Founder</p>
-              <p class="member-bio">Jane has over 15 years of experience in the industry.</p>
-            </div>
-          </div>
-        </div>
+      {{/* Team Grid Layout */}}
+      {{ if eq $teamLayout "grid" }}
+        {{ $colClass := "col-md-6 col-lg-3" }}
+        {{ if eq $teamColumns "3" }}
+          {{ $colClass = "col-md-6 col-lg-4" }}
+        {{ else if eq $teamColumns "2" }}
+          {{ $colClass = "col-md-6" }}
+        {{ end }}
         
-        <div class="team-member col-md-6 col-lg-3">
-          <div class="member-card">
-            <div class="member-image">
-              <img src="https://picsum.photos/400/400?random=team2" alt="John Doe">
-            </div>
-            <div class="member-info">
-              <h4 class="member-name">John Doe</h4>
-              <p class="member-position">CTO</p>
-              <p class="member-bio">John leads our technical team with expertise in digital transformation.</p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="team-member col-md-6 col-lg-3">
-          <div class="member-card">
-            <div class="member-image">
-              <img src="https://picsum.photos/400/400?random=team3" alt="Sarah Johnson">
-            </div>
-            <div class="member-info">
-              <h4 class="member-name">Sarah Johnson</h4>
-              <p class="member-position">Creative Director</p>
-              <p class="member-bio">Sarah brings creative vision to every client project.</p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="team-member col-md-6 col-lg-3">
-          <div class="member-card">
-            <div class="member-image">
-              <img src="https://picsum.photos/400/400?random=team4" alt="Michael Brown">
-            </div>
-            <div class="member-info">
-              <h4 class="member-name">Michael Brown</h4>
-              <p class="member-position">Marketing Director</p>
-              <p class="member-bio">Michael has driven successful marketing campaigns.</p>
+        <div class="team-members row">
+          {{ range $about.team.members }}
+          <div class="team-member {{ $colClass }}">
+            <div class="member-card">
+              {{ if .image }}
+              <div class="member-image">
+                <img src="{{ .image }}" alt="{{ .name }}">
+              </div>
+              {{ end }}
+              <div class="member-info">
+                <h4 class="member-name">{{ .name }}</h4>
+                <p class="member-position">{{ .position }}</p>
+                <p class="member-bio">{{ .bio }}</p>
+                
+                {{ if .social }}
+                <div class="member-social">
+                  {{ with .social.linkedin }}<a href="{{ . }}" target="_blank" class="social-link linkedin"><span class="sr-only">LinkedIn</span></a>{{ end }}
+                  {{ with .social.twitter }}<a href="https://twitter.com/{{ . }}" target="_blank" class="social-link twitter"><span class="sr-only">Twitter</span></a>{{ end }}
+                  {{ with .social.email }}<a href="mailto:{{ . }}" class="social-link email"><span class="sr-only">Email</span></a>{{ end }}
+                </div>
+                {{ end }}
+              </div>
             </div>
           </div>
+          {{ end }}
         </div>
-      </div>
+      
+      {{/* Team List Layout */}}
+      {{ else if eq $teamLayout "list" }}
+        <div class="team-list">
+          {{ range $about.team.members }}
+          <div class="team-list-item">
+            {{ if .image }}
+            <div class="member-image">
+              <img src="{{ .image }}" alt="{{ .name }}">
+            </div>
+            {{ end }}
+            <div class="member-info">
+              <h4 class="member-name">{{ .name }}</h4>
+              <p class="member-position">{{ .position }}</p>
+              <p class="member-bio">{{ .bio }}</p>
+              
+              {{ if .social }}
+              <div class="member-social">
+                {{ with .social.linkedin }}<a href="{{ . }}" target="_blank" class="social-link linkedin"><span class="sr-only">LinkedIn</span></a>{{ end }}
+                {{ with .social.twitter }}<a href="https://twitter.com/{{ . }}" target="_blank" class="social-link twitter"><span class="sr-only">Twitter</span></a>{{ end }}
+                {{ with .social.email }}<a href="mailto:{{ . }}" class="social-link email"><span class="sr-only">Email</span></a>{{ end }}
+              </div>
+              {{ end }}
+            </div>
+          </div>
+          {{ end }}
+        </div>
+      {{ end }}
     </div>
+    {{ end }}
   </div>
 </section>
