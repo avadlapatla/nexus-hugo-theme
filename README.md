@@ -2,7 +2,7 @@
 
 A modern, professional Hugo theme designed for businesses, agencies, and portfolios. Nexus provides a sleek, minimalist aesthetic with a focus on readability and user experience.
 
-![Nexus Hugo Theme](screenshot.png)
+![Nexus Hugo Theme](screenshot.jpeg)
 
 ## Features
 
